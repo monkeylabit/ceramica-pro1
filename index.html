@@ -1,0 +1,1976 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CeramicaPro — Arredo Bagno & Piastrelle</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:        #0d7070;
+      --teal-dark:   #085858;
+      --teal-light:  #1a9090;
+      --teal-pale:   #e8f4f4;
+      --arancio:     #e8601a;
+      --arancio-dark:#c44f14;
+      --arancio-pale:#fff3ed;
+      --nero:        #111111;
+      --carbone:     #222222;
+      --grigio-sc:   #444444;
+      --grigio:      #777777;
+      --grigio-ch:   #aaaaaa;
+      --bordo:       #e0e0e0;
+      --crema:       #f9f6f2;
+      --bianco:      #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--bianco);
+      color: var(--nero);
+      overflow-x: hidden;
+    }
+
+    /* ─── CURSOR ─── */
+    body { cursor: none; }
+    #cursor {
+      position: fixed; top: 0; left: 0; z-index: 9999;
+      width: 10px; height: 10px;
+      background: var(--arancio);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%,-50%);
+    }
+    #cursor-ring {
+      position: fixed; top: 0; left: 0; z-index: 9998;
+      width: 38px; height: 38px;
+      border: 1.5px solid var(--teal);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%,-50%);
+      transition: width .3s, height .3s, opacity .3s, border-color .3s;
+      opacity: 0.55;
+    }
+    @media (max-width: 900px) {
+      #cursor, #cursor-ring { display: none; }
+      body, a, button { cursor: auto; }
+    }
+
+    /* ─── TOPBAR ─── */
+    .topbar {
+      background: var(--arancio);
+      padding: 0 4vw;
+      height: 36px;
+      display: flex; align-items: center; justify-content: space-between;
+      overflow: hidden;
+    }
+    .topbar-marquee {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #fff;
+      white-space: nowrap;
+    }
+    .topbar-right {
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.9);
+      white-space: nowrap;
+      margin-left: 2rem;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--bianco);
+      border-bottom: 3px solid var(--teal);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 4vw;
+      height: 70px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.07);
+    }
+    .nav-logo {
+      display: flex; align-items: baseline; gap: 0;
+      text-decoration: none;
+    }
+    .nav-logo-ceramica {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: var(--teal);
+    }
+    .nav-logo-pro {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--teal-dark);
+    }
+    .nav-links { display: flex; gap: 0; list-style: none; }
+    .nav-links a {
+      display: block;
+      padding: 0 1.3rem;
+      height: 70px; line-height: 70px;
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--grigio-sc);
+      text-decoration: none;
+      position: relative;
+      transition: color .25s;
+      cursor: none;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: 0; left: 1.3rem; right: 1.3rem; height: 3px;
+      background: var(--arancio);
+      transform: scaleX(0);
+      transition: transform .25s;
+    }
+    .nav-links a:hover { color: var(--teal); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-cta {
+      background: var(--arancio);
+      color: #fff !important;
+      padding: 0 1.6rem !important;
+      transition: background .25s !important;
+    }
+    .nav-cta:hover { background: var(--arancio-dark) !important; color: #fff !important; }
+    .nav-cta::after { display: none !important; }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: calc(100vh - 106px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--bianco);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 6vw 5vw 6vw 8vw;
+      position: relative; z-index: 2;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: var(--arancio-pale);
+      border: 1px solid rgba(232,96,26,0.25);
+      padding: 0.4rem 1rem;
+      margin-bottom: 2rem;
+      align-self: flex-start;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px;
+      background: var(--arancio);
+      border-radius: 50%;
+    }
+    .hero-badge span {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--arancio);
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--nero);
+      margin-bottom: 1.6rem;
+    }
+    .hero-title strong {
+      font-weight: 600;
+      color: var(--teal);
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--arancio);
+    }
+    .hero-sub {
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--grigio-sc);
+      max-width: 420px;
+      margin-bottom: 2.5rem;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+    .btn-arancio {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.9rem 2rem;
+      background: var(--arancio);
+      color: #fff;
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 2px solid var(--arancio);
+      cursor: none;
+      transition: background .25s, transform .2s;
+    }
+    .btn-arancio:hover { background: var(--arancio-dark); border-color: var(--arancio-dark); transform: translateY(-2px); }
+    .btn-teal-outline {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.9rem 2rem;
+      background: transparent;
+      color: var(--teal);
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 2px solid var(--teal);
+      cursor: none;
+      transition: background .25s, color .25s;
+    }
+    .btn-teal-outline:hover { background: var(--teal); color: #fff; }
+
+    .hero-trust {
+      display: flex; gap: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--bordo);
+    }
+    .trust-item { display: flex; flex-direction: column; gap: 0.2rem; }
+    .trust-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--teal);
+      line-height: 1;
+    }
+    .trust-label {
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: var(--grigio);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-right {
+      position: relative;
+      background: var(--teal-dark);
+      overflow: hidden;
+    }
+    .hero-tiles-bg {
+      position: absolute; inset: 0;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-template-rows: repeat(6, 1fr);
+      gap: 2px;
+      opacity: 0.55;
+    }
+    .htile {
+      transition: background .8s ease;
+    }
+    .hero-overlay-text {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      z-index: 2;
+      gap: 1.2rem;
+    }
+    .hero-ot-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.12);
+      text-align: center;
+      line-height: 1;
+    }
+    .hero-ot-logo span { color: rgba(232,96,26,0.4); }
+    .hero-badge-float {
+      position: absolute;
+      bottom: 2.5rem; right: 2.5rem;
+      background: var(--arancio);
+      color: #fff;
+      padding: 1.2rem 1.8rem;
+      text-align: center;
+      z-index: 3;
+    }
+    .hbf-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      line-height: 1;
+      display: block;
+    }
+    .hbf-text {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+    .hero-tag-float {
+      position: absolute;
+      top: 2.5rem; left: 2.5rem;
+      background: rgba(255,255,255,0.95);
+      color: var(--teal);
+      padding: 0.8rem 1.2rem;
+      z-index: 3;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .hero-tag-float svg { color: var(--arancio); }
+    .hero-tag-float span {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ─── BRAND STRIP ─── */
+    .brand-strip {
+      background: var(--teal);
+      padding: 1.4rem 8vw;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .brand-strip-item {
+      display: flex; align-items: center; gap: 0.8rem;
+      color: rgba(255,255,255,0.85);
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .brand-strip-item svg { color: rgba(255,255,255,0.5); flex-shrink: 0; }
+
+    /* ─── SECTIONS COMMON ─── */
+    .section-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.7rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--arancio);
+      margin-bottom: 1rem;
+    }
+    .section-eyebrow::before {
+      content: '';
+      display: block; width: 28px; height: 2px;
+      background: var(--arancio);
+    }
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--nero);
+    }
+    h2 strong { font-weight: 600; color: var(--teal); }
+    h2 em { font-style: italic; color: var(--arancio); }
+
+    /* ─── RISTRUTTURAZIONE ─── */
+    #ristrutturazione {
+      padding: 7rem 8vw;
+      background: var(--bianco);
+    }
+    .ristr-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6vw;
+      align-items: end;
+      margin-bottom: 4rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--bordo);
+    }
+    .ristr-header p {
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--grigio-sc);
+    }
+    .ristr-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5px;
+      background: var(--teal);
+    }
+    .ristr-card {
+      background: var(--bianco);
+      padding: 2.5rem 2rem;
+      transition: background .3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .ristr-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--arancio);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .4s;
+    }
+    .ristr-card:hover { background: var(--crema); }
+    .ristr-card:hover::before { transform: scaleX(1); }
+    .ristr-icon {
+      width: 52px; height: 52px;
+      background: var(--teal-pale);
+      border-radius: 0;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.5rem;
+      transition: background .3s;
+    }
+    .ristr-card:hover .ristr-icon { background: rgba(232,96,26,0.1); }
+    .ristr-icon svg { color: var(--teal); transition: color .3s; }
+    .ristr-card:hover .ristr-icon svg { color: var(--arancio); }
+    .ristr-card-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--nero);
+      margin-bottom: 0.8rem;
+    }
+    .ristr-card-desc {
+      font-size: 0.85rem;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--grigio-sc);
+    }
+    .ristr-card-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 4rem;
+      font-weight: 700;
+      color: rgba(13,112,112,0.06);
+      position: absolute; bottom: 1rem; right: 1.5rem;
+      line-height: 1;
+    }
+
+    /* ─── PROCESSO ─── */
+    #processo {
+      background: var(--teal);
+      padding: 5rem 8vw;
+      position: relative;
+      overflow: hidden;
+    }
+    #processo::before {
+      content: 'PROCESSO';
+      position: absolute;
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18vw;
+      font-weight: 700;
+      color: rgba(255,255,255,0.03);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .processo-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 3.5rem;
+    }
+    .processo-header h2 { color: #fff; }
+    .processo-header h2 strong { color: rgba(255,255,255,0.9); }
+    .processo-header h2 em { color: var(--arancio); }
+    .processo-header .section-eyebrow { color: rgba(255,255,255,0.6); }
+    .processo-header .section-eyebrow::before { background: rgba(255,255,255,0.4); }
+    .processo-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+    }
+    .processo-steps::after {
+      content: '';
+      position: absolute;
+      top: 26px; left: 26px; right: 26px; height: 1px;
+      background: rgba(255,255,255,0.15);
+    }
+    .pstep {
+      padding: 0 1.5rem;
+      padding-top: 0;
+    }
+    .pstep-num {
+      width: 52px; height: 52px;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: var(--teal-dark);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--arancio);
+      margin-bottom: 1.8rem;
+      position: relative; z-index: 1;
+    }
+    .pstep-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 0.6rem;
+    }
+    .pstep-desc {
+      font-size: 0.82rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* ─── CATALOGO ─── */
+    #catalogo {
+      padding: 7rem 8vw;
+      background: var(--crema);
+    }
+    .catalogo-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-bottom: 3rem;
+    }
+    .catalogo-header-right p {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--grigio);
+      max-width: 240px;
+      text-align: right;
+      line-height: 1.7;
+    }
+    /* ─── CATALOG REDESIGN ─── */
+    .cat-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 0;
+      border: 1.5px solid var(--bordo);
+      min-height: 560px;
+    }
+    .cat-sidebar {
+      border-right: 1.5px solid var(--bordo);
+      display: flex; flex-direction: column;
+    }
+    .cat-tab {
+      display: flex; flex-direction: column; gap: 0.2rem;
+      padding: 1.1rem 1.4rem;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--bordo);
+      text-align: left;
+      cursor: none;
+      transition: background .2s;
+      position: relative;
+    }
+    .cat-tab::before {
+      content: '';
+      position: absolute; top: 0; left: 0; bottom: 0; width: 3px;
+      background: var(--arancio);
+      transform: scaleY(0);
+      transition: transform .25s;
+    }
+    .cat-tab:hover { background: var(--crema); }
+    .cat-tab.active { background: var(--teal-pale); }
+    .cat-tab.active::before { transform: scaleY(1); }
+    .ct-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--nero);
+      transition: color .2s;
+    }
+    .cat-tab.active .ct-name { color: var(--teal); }
+    .ct-count {
+      font-size: 0.68rem;
+      font-weight: 300;
+      color: var(--grigio);
+    }
+    .cat-content {
+      padding: 2rem 2.2rem;
+      background: var(--bianco);
+    }
+    .cat-panel { display: none; }
+    .cat-panel.active { display: block; }
+    .cat-panel-intro {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      margin-bottom: 1.6rem;
+      padding-bottom: 1.2rem;
+      border-bottom: 1px solid var(--bordo);
+      gap: 2rem;
+    }
+    .cat-panel-intro h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--nero);
+      margin-bottom: 0.3rem;
+    }
+    .cat-panel-intro p {
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: var(--grigio);
+      line-height: 1.7;
+      max-width: 340px;
+    }
+    .cat-panel-formats {
+      display: flex; gap: 0.4rem; flex-wrap: wrap;
+      align-items: flex-start;
+      flex-shrink: 0;
+    }
+    .cat-fmt {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border: 1px solid var(--teal);
+      color: var(--teal);
+    }
+    .cat-tiles-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3px;
+    }
+    .cat-tile {
+      position: relative; overflow: hidden;
+      aspect-ratio: 1; cursor: none;
+    }
+    .cat-tile.tall { aspect-ratio: 9/16; grid-row: span 2; }
+    .cat-tile.wide { grid-column: span 2; aspect-ratio: 2/1; }
+    .cat-tile img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform .6s cubic-bezier(.25,0,0,1);
+    }
+    .cat-tile:hover img { transform: scale(1.06); }
+    .cat-tile-info {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,68,68,0.88) 0%, rgba(8,68,68,0.1) 50%, transparent 100%);
+      opacity: 0; transition: opacity .3s;
+      display: flex; flex-direction: column;
+      justify-content: flex-end; padding: 0.9rem 1rem;
+    }
+    .cat-tile:hover .cat-tile-info { opacity: 1; }
+    .cat-tile-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem; font-weight: 400; color: #fff;
+      margin-bottom: 0.25rem; line-height: 1.2;
+    }
+    .cat-tile-meta {
+      display: flex; align-items: center; justify-content: space-between; gap: 0.4rem;
+    }
+    .cat-tile-dim {
+      font-size: 0.6rem; font-weight: 500; letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.65); text-transform: uppercase;
+    }
+    .cat-tile-fin {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.58rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.15rem 0.45rem;
+      background: var(--arancio); color: #fff; flex-shrink: 0;
+    }
+
+    .catalogo-cta {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 2.5rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--bordo);
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .catalogo-cta p { font-size: 0.9rem; color: var(--grigio-sc); }
+    .catalogo-cta strong { color: var(--teal); }
+
+    @media (max-width: 900px) {
+      .cat-layout { grid-template-columns: 1fr; }
+      .cat-sidebar { flex-direction: row; flex-wrap: wrap; border-right: none; border-bottom: 1.5px solid var(--bordo); }
+      .cat-tab { flex: 1 1 auto; border-bottom: 1px solid var(--bordo); border-right: 1px solid var(--bordo); padding: 0.8rem 0.8rem; }
+      .cat-tab::before { top: auto; bottom: 0; left: 0; right: 0; width: auto; height: 3px; transform: scaleX(0); }
+      .cat-tab.active::before { transform: scaleX(1); }
+      .cat-tiles-grid { grid-template-columns: repeat(2,1fr); }
+      .cat-tile.tall { aspect-ratio: 1; grid-row: span 1; }
+      .cat-tile.wide { grid-column: span 1; aspect-ratio: 1; }
+    }
+
+    /* ─── MATERIALI ─── */
+    #materiali {
+      background: var(--bianco);
+      padding: 7rem 8vw;
+    }
+    .mat-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6vw;
+      align-items: center;
+    }
+    .mat-visual {
+      position: relative;
+    }
+    .mat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 160px 160px;
+      gap: 3px;
+    }
+    .mg-1 { background: linear-gradient(135deg, #e0d8cc, #c8c0b4); }
+    .mg-2 { background: var(--teal); grid-row: span 2; }
+    .mg-3 { background: linear-gradient(135deg, #9c4c2a, #7a3820); }
+    .mat-label {
+      position: absolute; bottom: -1.5rem; right: 0;
+      background: var(--arancio);
+      color: #fff;
+      padding: 0.6rem 1.2rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .mat-content h2 { margin-bottom: 1.2rem; }
+    .mat-content > p {
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--grigio-sc);
+      margin-bottom: 2rem;
+    }
+    .mat-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+    }
+    .mat-list li {
+      display: flex; align-items: center; gap: 0.7rem;
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--carbone);
+    }
+    .mat-list li::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--arancio);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ─── GALLERY STRIP ─── */
+    .gallery-strip {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 3px;
+      height: 200px;
+    }
+    .gs-cell { overflow: hidden; }
+    .gs-cell img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s; }
+    .gs-cell:hover img { transform: scale(1.08); }
+
+    /* ─── CONTATTO ─── */
+    #contatto {
+      background: var(--nero);
+      padding: 7rem 8vw;
+      position: relative;
+      overflow: hidden;
+    }
+    #contatto::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--teal), var(--arancio));
+    }
+    .contatto-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 7vw;
+    }
+    .contatto-info .section-eyebrow { color: var(--arancio); }
+    .contatto-info .section-eyebrow::before { background: var(--arancio); }
+    .contatto-info h2 { color: #fff; }
+    .contatto-info h2 strong { color: var(--teal-light); }
+    .contatto-info p {
+      font-size: 0.88rem;
+      font-weight: 300;
+      line-height: 1.9;
+      color: rgba(255,255,255,0.55);
+      margin: 1.2rem 0 2.5rem;
+    }
+    .info-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
+      margin-top: 2.5rem;
+    }
+    .info-card {
+      background: var(--nero);
+      padding: 1.4rem;
+      display: flex; flex-direction: column; gap: 0.4rem;
+    }
+    .info-card-label {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--arancio);
+    }
+    .info-card-val {
+      font-size: 0.88rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.75);
+    }
+
+    form { display: flex; flex-direction: column; gap: 1.2rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+    .form-input, .form-textarea, .form-select {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.85);
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      padding: 0.85rem 1rem;
+      outline: none;
+      transition: border-color .25s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: rgba(255,255,255,0.2); }
+    .form-input:focus, .form-textarea:focus, .form-select:focus { border-color: var(--teal-light); }
+    .form-textarea { resize: vertical; min-height: 110px; }
+    .form-select option { background: #1a1a1a; }
+    .form-submit {
+      padding: 1rem 2rem;
+      background: var(--arancio);
+      border: none;
+      color: #fff;
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: none;
+      align-self: flex-start;
+      transition: background .25s, transform .2s;
+    }
+    .form-submit:hover { background: var(--arancio-dark); transform: translateY(-2px); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--teal-dark);
+      padding: 2.5rem 8vw;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1.5rem;
+    }
+    .footer-logo {
+      display: flex; align-items: baseline;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.3rem;
+      color: rgba(255,255,255,0.9);
+    }
+    .footer-logo b { font-weight: 700; color: #fff; }
+    .footer-copy { font-size: 0.72rem; font-weight: 300; color: rgba(255,255,255,0.45); }
+    .footer-nav { display: flex; gap: 2rem; }
+    .footer-nav a {
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      cursor: none;
+      transition: color .2s;
+    }
+    .footer-nav a:hover { color: #fff; }
+
+    /* ─── IMAGES ─── */
+    .tile-visual img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+    .hero-bg-img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.55) saturate(0.8);
+    }
+    .mg-img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+
+    /* ─── BAGNI SHOWCASE ─── */
+    #bagni-showcase {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 340px 340px;
+      gap: 3px;
+    }
+    .bs-cell {
+      position: relative; overflow: hidden; cursor: none;
+    }
+    .bs-cell img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform .7s cubic-bezier(.25,0,0,1);
+    }
+    .bs-cell:hover img { transform: scale(1.06); }
+    .bs-cell.bs-tall { grid-row: span 2; }
+    .bs-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 1.2rem 1.4rem;
+      background: linear-gradient(to top, rgba(8,88,88,0.85), transparent);
+      color: #fff;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0;
+      transition: opacity .35s;
+    }
+    .bs-cell:hover .bs-label { opacity: 1; }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .75s cubic-bezier(.22,1,.36,1), transform .75s cubic-bezier(.22,1,.36,1);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+    .reveal-delay-4 { transition-delay: .4s; }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 900px) {
+      #hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-left { padding: 3rem 5vw 4rem; }
+      .ristr-header, .mat-layout, .contatto-layout { grid-template-columns: 1fr; }
+      .ristr-grid { grid-template-columns: 1fr; }
+      .processo-steps { grid-template-columns: 1fr 1fr; }
+      .catalogo-grid { grid-template-columns: 1fr 1fr; }
+      .tile-card.featured { grid-column: span 1; grid-row: span 1; }
+      .gallery-strip { grid-template-columns: repeat(3,1fr); height: 140px; }
+      .nav-links { display: none; }
+      footer { flex-direction: column; text-align: center; }
+      .brand-strip { flex-direction: column; gap: 1rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .mat-list { grid-template-columns: 1fr; }
+      .info-cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cursor"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="topbar-marquee">
+      Vendita Ceramica Ingrosso e Dettaglio &nbsp;•&nbsp; Arredo Bagno &nbsp;•&nbsp; Impianti Idraulici &amp; Elettrici &nbsp;•&nbsp; Ristrutturazione Chiavi in Mano &nbsp;•&nbsp; Vendita Ceramica Ingrosso e Dettaglio &nbsp;•&nbsp; Arredo Bagno &nbsp;•&nbsp; Ristrutturazione Chiavi in Mano
+    </div>
+    <div class="topbar-right">Lun–Sab &nbsp;9:00–19:00</div>
+  </div>
+
+  <!-- Nav -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <span class="nav-logo-ceramica">CERAMICA</span><span class="nav-logo-pro">PRO</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#ristrutturazione">Ristrutturazione</a></li>
+      <li><a href="#processo">Come Lavoriamo</a></li>
+      <li><a href="#catalogo">Catalogo</a></li>
+      <li><a href="#materiali">Materiali</a></li>
+      <li><a href="#contatto" class="nav-cta">Preventivo Gratuito</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left">
+      <div class="hero-badge">
+        <div class="hero-badge-dot"></div>
+        <span>Ristrutturazione Chiavi in Mano</span>
+      </div>
+      <h1 class="hero-title">
+        Il bagno che<br>hai sempre<br><em>desiderato</em><br><strong>esiste.</strong>
+      </h1>
+      <p class="hero-sub">
+        Da oltre 20 anni realizziamo bagni su misura con piastrelle di prima qualità.
+        Progettazione, posa e finitura: tutto incluso, senza sorprese.
+      </p>
+      <div class="hero-actions">
+        <a href="#contatto" class="btn-arancio">
+          Richiedi Preventivo Gratuito
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#catalogo" class="btn-teal-outline">Sfoglia il Catalogo</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item">
+          <div class="trust-num">850+</div>
+          <div class="trust-label">Bagni Realizzati</div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-num">20+</div>
+          <div class="trust-label">Anni Esperienza</div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-num">400+</div>
+          <div class="trust-label">Modelli in Showroom</div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-num">5</div>
+          <div class="trust-label">Anni di Garanzia</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <img class="hero-bg-img" src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=1200&q=85" alt="Bagno ristrutturato da CeramicaPro" loading="eager" />
+      <div class="hero-tiles-bg" id="hero-tiles" style="opacity:0.22;"></div>
+      <div class="hero-tag-float">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <span>Garanzia 5 Anni su Posa</span>
+      </div>
+      <div class="hero-badge-float">
+        <span class="hbf-num">400+</span>
+        <span class="hbf-text">Modelli Disponibili</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Brand strip -->
+  <div class="brand-strip">
+    <div class="brand-strip-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Posa Professionale Certificata
+    </div>
+    <div class="brand-strip-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Consegna nei Tempi Concordati
+    </div>
+    <div class="brand-strip-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      Oltre 850 Clienti Soddisfatti
+    </div>
+    <div class="brand-strip-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Showroom aperto al Pubblico
+    </div>
+    <div class="brand-strip-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      Sopralluogo Gratuito
+    </div>
+  </div>
+
+  <!-- RISTRUTTURAZIONE BAGNI -->
+  <section id="ristrutturazione">
+    <div class="ristr-header reveal">
+      <div>
+        <div class="section-eyebrow">Ristrutturazione Bagni</div>
+        <h2>Un bagno nuovo,<br><strong>chiavi in mano</strong></h2>
+      </div>
+      <p>
+        Ci occupiamo di ogni aspetto della ristrutturazione: dal progetto alla posa delle piastrelle,
+        dall'idraulica all'illuminazione. Un solo interlocutore per un risultato impeccabile,
+        nei tempi e nel budget concordati.
+      </p>
+    </div>
+
+    <div class="ristr-grid">
+      <div class="ristr-card reveal">
+        <div class="ristr-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="26" height="26"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <div class="ristr-card-title">Progettazione 3D</div>
+        <p class="ristr-card-desc">Visualizza il tuo bagno prima che inizi anche solo un martello. Rendiamo il progetto in 3D con layout, piastrelle scelte e lighting.</p>
+        <div class="ristr-card-num">01</div>
+      </div>
+      <div class="ristr-card reveal reveal-delay-1">
+        <div class="ristr-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="26" height="26"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+        </div>
+        <div class="ristr-card-title">Demolizione & Preparazione</div>
+        <p class="ristr-card-desc">Rimozione vecchie piastrelle, impermeabilizzazione, livellamento e preparazione del sottofondo per una posa perfetta e duratura.</p>
+        <div class="ristr-card-num">02</div>
+      </div>
+      <div class="ristr-card reveal reveal-delay-2">
+        <div class="ristr-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="26" height="26"><rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="8"/><rect x="3" y="13" width="8" height="8"/><rect x="13" y="13" width="8" height="8"/></svg>
+        </div>
+        <div class="ristr-card-title">Posa Piastrelle</div>
+        <p class="ristr-card-desc">Posa di grès porcellanato, marmo, mosaico e kerlite con tecniche tradizionali e moderne: chevron, a spina di pesce, diagonal, large format.</p>
+        <div class="ristr-card-num">03</div>
+      </div>
+      <div class="ristr-card reveal">
+        <div class="ristr-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="26" height="26"><path d="M12 22V12M12 12C12 6.477 7.523 2 2 2v10M12 12c0-5.523 4.477-10 10-10v10"/><path d="M2 12h20"/></svg>
+        </div>
+        <div class="ristr-card-title">Idraulica & Sanitari</div>
+        <p class="ristr-card-desc">Installazione di sanitari, docce a filo, vasche freestanding e rubinetterie di design. Collaboriamo con i migliori brand del settore.</p>
+        <div class="ristr-card-num">04</div>
+      </div>
+      <div class="ristr-card reveal reveal-delay-1">
+        <div class="ristr-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="26" height="26"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </div>
+        <div class="ristr-card-title">Illuminazione</div>
+        <p class="ristr-card-desc">Spot a incasso, retroilluminazione specchi, strisce LED e punti luce orientabili per un'atmosfera perfetta sia di giorno che di notte.</p>
+        <div class="ristr-card-num">05</div>
+      </div>
+      <div class="ristr-card reveal reveal-delay-2">
+        <div class="ristr-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="26" height="26"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div class="ristr-card-title">Finitura & Garanzia</div>
+        <p class="ristr-card-desc">Stuccatura, sigillatura, pulizia professionale e collaudo finale. Garanzia scritta 5 anni su posa e su tutti i materiali da noi forniti.</p>
+        <div class="ristr-card-num">06</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BAGNI SHOWCASE -->
+  <div id="bagni-showcase">
+    <div class="bs-cell bs-tall">
+      <img src="images/bagno_1.png" alt="Bagno moderno con doccia" loading="lazy" />
+      <div class="bs-label">Doccia Walk-in</div>
+    </div>
+    <div class="bs-cell">
+      <img src="images/bagno_2.png" alt="Bagno di design" loading="lazy" />
+      <div class="bs-label">Bagno Padronale</div>
+    </div>
+    <div class="bs-cell">
+      <img src="images/bagno_3.png" alt="Vasca freestanding" loading="lazy" />
+      <div class="bs-label">Suite con Vasca</div>
+    </div>
+    <div class="bs-cell">
+      <img src="images/bagno_4.png" alt="Bagno luxury dark" loading="lazy" />
+      <div class="bs-label">Luxury Dark</div>
+    </div>
+    <div class="bs-cell">
+      <img src="images/bagno_5.png" alt="Bagno ristrutturato" loading="lazy" />
+      <div class="bs-label">Ristrutturazione Completa</div>
+    </div>
+  </div>
+
+  <!-- PROCESSO -->
+  <section id="processo">
+    <div class="processo-header reveal">
+      <div>
+        <div class="section-eyebrow">Come Lavoriamo</div>
+        <h2>4 fasi, zero <em>sorprese</em></h2>
+      </div>
+    </div>
+    <div class="processo-steps">
+      <div class="pstep reveal">
+        <div class="pstep-num">01</div>
+        <div class="pstep-title">Sopralluogo Gratuito</div>
+        <p class="pstep-desc">Veniamo a casa tua, misuriamo il bagno e ascoltiamo le tue idee. Nessun costo, nessun impegno.</p>
+      </div>
+      <div class="pstep reveal reveal-delay-1">
+        <div class="pstep-num">02</div>
+        <div class="pstep-title">Progetto & Preventivo</div>
+        <p class="pstep-desc">Progetto 3D dettagliato e preventivo completo con tutti i costi inclusi. Niente voci nascoste.</p>
+      </div>
+      <div class="pstep reveal reveal-delay-2">
+        <div class="pstep-num">03</div>
+        <div class="pstep-title">Realizzazione</div>
+        <p class="pstep-desc">I nostri artigiani lavorano nei tempi concordati. Ti aggiorniamo ogni giorno sull'avanzamento.</p>
+      </div>
+      <div class="pstep reveal reveal-delay-3">
+        <div class="pstep-num">04</div>
+        <div class="pstep-title">Consegna & Garanzia</div>
+        <p class="pstep-desc">Consegna con collaudo completo e garanzia 5 anni scritta. Il tuo bagno è pronto all'uso.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATALOGO PIASTRELLE -->
+  <section id="catalogo">
+    <div class="catalogo-header reveal">
+      <div>
+        <div class="section-eyebrow">Catalogo Piastrelle</div>
+        <h2>Scegli la tua<br><strong>superficie</strong></h2>
+      </div>
+      <div class="catalogo-header-right">
+        <p>400+ modelli disponibili in showroom.<br>Consulenza personale inclusa.</p>
+      </div>
+    </div>
+
+    <div class="cat-layout reveal">
+
+      <!-- Sidebar navigazione categorie -->
+      <aside class="cat-sidebar">
+        <button class="cat-tab active" data-cat="cemento">
+          <span class="ct-name">Effetto Cemento</span>
+          <span class="ct-count">32 modelli</span>
+        </button>
+        <button class="cat-tab" data-cat="legno">
+          <span class="ct-name">Effetto Legno</span>
+          <span class="ct-count">28 modelli</span>
+        </button>
+        <button class="cat-tab" data-cat="marmo">
+          <span class="ct-name">Effetto Marmo</span>
+          <span class="ct-count">45 modelli</span>
+        </button>
+        <button class="cat-tab" data-cat="onice">
+          <span class="ct-name">Effetto Onice</span>
+          <span class="ct-count">18 modelli</span>
+        </button>
+        <button class="cat-tab" data-cat="pietra">
+          <span class="ct-name">Effetto Pietra</span>
+          <span class="ct-count">36 modelli</span>
+        </button>
+        <button class="cat-tab" data-cat="lucido">
+          <span class="ct-name">Lucido</span>
+          <span class="ct-count">24 modelli</span>
+        </button>
+        <button class="cat-tab" data-cat="outdoor">
+          <span class="ct-name">Outdoor</span>
+          <span class="ct-count">22 modelli</span>
+        </button>
+        <button class="cat-tab" data-cat="rivestimenti">
+          <span class="ct-name">Rivestimenti</span>
+          <span class="ct-count">40 modelli</span>
+        </button>
+      </aside>
+
+      <!-- Contenuto pannelli -->
+      <div class="cat-content">
+
+        <!-- EFFETTO CEMENTO -->
+        <div class="cat-panel active" id="panel-cemento">
+          <div class="cat-panel-intro">
+            <div>
+              <h3>Effetto Cemento</h3>
+              <p>Superfici contemporanee dall'estetica industriale. Perfette per ambienti minimal e urban-chic, abbinano texture irregolari a tonalità neutre che valorizzano ogni ambiente.</p>
+            </div>
+            <div class="cat-panel-formats">
+              <span class="cat-fmt">30×60</span>
+              <span class="cat-fmt">60×60</span>
+              <span class="cat-fmt">60×120</span>
+              <span class="cat-fmt">80×80</span>
+              <span class="cat-fmt">120×120</span>
+            </div>
+          </div>
+          <div class="cat-tiles-grid">
+            <div class="cat-tile wide">
+              <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=85" alt="Cemento Grigio Medio" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Cemento Grigio Medio</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">60×60 cm</span><span class="cat-tile-fin">Naturale</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1548536571-9df42752eff1?auto=format&fit=crop&w=600&q=85" alt="Antracite Spazzolato" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Antracite Spazzolato</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">60×120 cm</span><span class="cat-tile-fin">Spazzolato</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=600&q=85" alt="Calce Bianca" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Calce Bianca</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">80×80 cm</span><span class="cat-tile-fin">Opaco</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1590725140246-20acdee442be?auto=format&fit=crop&w=600&q=85" alt="Nero Industriale" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Nero Industriale</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">30×60 cm</span><span class="cat-tile-fin">Naturale</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=600&q=85" alt="Cemento Polvere" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Cemento Polvere</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">120×120 cm</span><span class="cat-tile-fin">Lappato</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1564540572323-a6e20b06f0b1?auto=format&fit=crop&w=600&q=85" alt="Cemento Tortora" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Cemento Tortora</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">60×60 cm</span><span class="cat-tile-fin">Opaco</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EFFETTO LEGNO -->
+        <div class="cat-panel" id="panel-legno">
+          <div class="cat-panel-intro">
+            <div>
+              <h3>Effetto Legno</h3>
+              <p>Il calore del legno naturale con la resistenza del grès porcellanato. Ideali per bagni, cucine e aree living che cercano un'atmosfera accogliente e contemporanea.</p>
+            </div>
+            <div class="cat-panel-formats">
+              <span class="cat-fmt">15×90</span>
+              <span class="cat-fmt">20×120</span>
+              <span class="cat-fmt">22×85</span>
+              <span class="cat-fmt">25×150</span>
+            </div>
+          </div>
+          <div class="cat-tiles-grid">
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?auto=format&fit=crop&w=600&q=85" alt="Rovere Scuro" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Rovere Scuro</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">20×120 cm</span><span class="cat-tile-fin">Naturale</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1541123437800-1bb1317badc2?auto=format&fit=crop&w=600&q=85" alt="Larice Bianco" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Larice Bianco</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">22×85 cm</span><span class="cat-tile-fin">Spazzolato</span></div>
+              </div>
+            </div>
+            <div class="cat-tile wide">
+              <img src="https://images.unsplash.com/photo-1513467535987-fd81bc7d62f8?auto=format&fit=crop&w=900&q=85" alt="Noce Americano" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Noce Americano</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">25×150 cm</span><span class="cat-tile-fin">Naturale</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?auto=format&fit=crop&w=600&q=85" alt="Teak Orientale" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Teak Orientale</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">15×90 cm</span><span class="cat-tile-fin">Lappato</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=600&q=85" alt="Pino Vintage" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Pino Vintage</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">20×120 cm</span><span class="cat-tile-fin">Anticato</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=85" alt="Bambu Naturale" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Bambu Naturale</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">22×85 cm</span><span class="cat-tile-fin">Naturale</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EFFETTO MARMO -->
+        <div class="cat-panel" id="panel-marmo">
+          <div class="cat-panel-intro">
+            <div>
+              <h3>Effetto Marmo</h3>
+              <p>L'eleganza senza tempo del marmo reinterpretata in grès di ultima generazione. Venature naturali, cromie raffinate e finiture che esaltano ogni ambiente residenziale o contract.</p>
+            </div>
+            <div class="cat-panel-formats">
+              <span class="cat-fmt">45×90</span>
+              <span class="cat-fmt">60×120</span>
+              <span class="cat-fmt">80×160</span>
+              <span class="cat-fmt">120×240</span>
+            </div>
+          </div>
+          <div class="cat-tiles-grid">
+            <div class="cat-tile wide">
+              <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=900&q=85" alt="Bianco Carrara Lux" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Bianco Carrara Lux</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">60×120 cm</span><span class="cat-tile-fin">Lucidato</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=600&q=85" alt="Calacatta Gold" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Calacatta Gold</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">80×160 cm</span><span class="cat-tile-fin">Lucidato</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1599619351208-3e6c839d6828?auto=format&fit=crop&w=600&q=85" alt="Statuario Venato" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Statuario Venato</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">60×120 cm</span><span class="cat-tile-fin">Satin</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1513467535987-fd81bc7d62f8?auto=format&fit=crop&w=600&q=85" alt="Travertino Romano" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Travertino Romano</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">45×90 cm</span><span class="cat-tile-fin">Naturale</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1620626011761-996317702149?auto=format&fit=crop&w=600&q=85" alt="Botticino Classico" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Botticino Classico</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">40×80 cm</span><span class="cat-tile-fin">Lucidato</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=600&q=85" alt="Marquinia Nero" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Marquinia Nero</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">120×240 cm</span><span class="cat-tile-fin">Lucidato</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EFFETTO ONICE -->
+        <div class="cat-panel" id="panel-onice">
+          <div class="cat-panel-intro">
+            <div>
+              <h3>Effetto Onice</h3>
+              <p>Venature drammatiche e trasparenze cristalline che evocano la pietra semipreziosità dell'onice. Per ambienti di rappresentanza che vogliono stupire con materiali unici.</p>
+            </div>
+            <div class="cat-panel-formats">
+              <span class="cat-fmt">60×120</span>
+              <span class="cat-fmt">80×160</span>
+              <span class="cat-fmt">120×240</span>
+            </div>
+          </div>
+          <div class="cat-tiles-grid">
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1599619351208-3e6c839d6828?auto=format&fit=crop&w=600&q=85" alt="Onice Bianco Oro" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Onice Bianco Oro</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">60×120 cm</span><span class="cat-tile-fin">Lucidato</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=600&q=85" alt="Onice Artico" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Onice Artico</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">80×160 cm</span><span class="cat-tile-fin">Satin</span></div>
+              </div>
+            </div>
+            <div class="cat-tile wide">
+              <img src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=900&q=85" alt="Onice Miele" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Onice Miele</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">120×240 cm</span><span class="cat-tile-fin">Lucidato</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1548536571-9df42752eff1?auto=format&fit=crop&w=600&q=85" alt="Onice Nero Fumo" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Onice Nero Fumo</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">60×120 cm</span><span class="cat-tile-fin">Lucidato</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1590725140246-20acdee442be?auto=format&fit=crop&w=600&q=85" alt="Onice Verde Alpi" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Onice Verde Alpi</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">80×160 cm</span><span class="cat-tile-fin">Satin</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=600&q=85" alt="Onice Rosa Cipria" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Onice Rosa Cipria</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">60×120 cm</span><span class="cat-tile-fin">Lucidato</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EFFETTO PIETRA -->
+        <div class="cat-panel" id="panel-pietra">
+          <div class="cat-panel-intro">
+            <div>
+              <h3>Effetto Pietra</h3>
+              <p>La robustezza e l'autenticità della pietra naturale in un formato performante. Ardesia, basalto, quarzite e porfido per ambienti dalla forte personalità.</p>
+            </div>
+            <div class="cat-panel-formats">
+              <span class="cat-fmt">30×30</span>
+              <span class="cat-fmt">40×40</span>
+              <span class="cat-fmt">60×60</span>
+              <span class="cat-fmt">60×120</span>
+            </div>
+          </div>
+          <div class="cat-tiles-grid">
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1590725140246-20acdee442be?auto=format&fit=crop&w=600&q=85" alt="Ardesia Nera" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Ardesia Nera</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">60×60 cm</span><span class="cat-tile-fin">Naturale</span></div>
+              </div>
+            </div>
+            <div class="cat-tile wide">
+              <img src="https://images.unsplash.com/photo-1541123437800-1bb1317badc2?auto=format&fit=crop&w=900&q=85" alt="Quarzite Sahara" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Quarzite Sahara</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">60×120 cm</span><span class="cat-tile-fin">Spazzolato</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?auto=format&fit=crop&w=600&q=85" alt="Porfido Rosso" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Porfido Rosso</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">30×30 cm</span><span class="cat-tile-fin">Naturale</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1548536571-9df42752eff1?auto=format&fit=crop&w=600&q=85" alt="Basalto Grigio" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Basalto Grigio</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">40×40 cm</span><span class="cat-tile-fin">Fiammato</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1564540572323-a6e20b06f0b1?auto=format&fit=crop&w=600&q=85" alt="Pietra Verde Montana" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Pietra Verde Montana</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">60×60 cm</span><span class="cat-tile-fin">Bocciardato</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=600&q=85" alt="Luserna Grigio" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Luserna Grigio</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">60×120 cm</span><span class="cat-tile-fin">Spazzolato</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LUCIDO -->
+        <div class="cat-panel" id="panel-lucido">
+          <div class="cat-panel-intro">
+            <div>
+              <h3>Lucido</h3>
+              <p>Superfici specchiate che moltiplicano la luce e ampliano visivamente gli spazi. La finitura lucida dona un effetto premium inconfondibile a pavimenti e rivestimenti.</p>
+            </div>
+            <div class="cat-panel-formats">
+              <span class="cat-fmt">60×60</span>
+              <span class="cat-fmt">60×120</span>
+              <span class="cat-fmt">80×80</span>
+              <span class="cat-fmt">120×120</span>
+            </div>
+          </div>
+          <div class="cat-tiles-grid">
+            <div class="cat-tile wide">
+              <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=900&q=85" alt="Bianco Lucido Assoluto" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Bianco Lucido Assoluto</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">120×120 cm</span><span class="cat-tile-fin">Lucidato</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1620626011761-996317702149?auto=format&fit=crop&w=600&q=85" alt="Grigio Lux" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Grigio Lux</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">60×120 cm</span><span class="cat-tile-fin">Lucidato</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1629079447777-1e605162dc8d?auto=format&fit=crop&w=600&q=85" alt="Nero Lucido" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Nero Lucido</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">80×80 cm</span><span class="cat-tile-fin">Lucidato</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=600&q=85" alt="Crema Lucida" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Crema Lucida</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">60×60 cm</span><span class="cat-tile-fin">Lucidato</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=600&q=85" alt="Lappato Marmo" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Lappato Marmo</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">60×120 cm</span><span class="cat-tile-fin">Lappato</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=600&q=85" alt="Oro Mosaico Lux" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Oro Mosaico Lux</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">5×5 cm</span><span class="cat-tile-fin">Lucidato</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- OUTDOOR -->
+        <div class="cat-panel" id="panel-outdoor">
+          <div class="cat-panel-intro">
+            <div>
+              <h3>Outdoor</h3>
+              <p>Piastrelle certificate per l'esterno: resistenti al gelo, antisdrucciolo (R11) e alle intemperie. Perfette per terrazze, giardini, bordi piscina e pavimenti di esterni.</p>
+            </div>
+            <div class="cat-panel-formats">
+              <span class="cat-fmt">30×30 R11</span>
+              <span class="cat-fmt">40×40 R11</span>
+              <span class="cat-fmt">60×60 R11</span>
+              <span class="cat-fmt">60×120 R11</span>
+            </div>
+          </div>
+          <div class="cat-tiles-grid">
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1513467535987-fd81bc7d62f8?auto=format&fit=crop&w=600&q=85" alt="Pietra Outdoor Sabbia" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Pietra Outdoor Sabbia</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">60×60 cm</span><span class="cat-tile-fin">R11 Antiscivolo</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?auto=format&fit=crop&w=600&q=85" alt="Cotto Esterno" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Cotto Esterno</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">30×30 cm</span><span class="cat-tile-fin">R11 Antiscivolo</span></div>
+              </div>
+            </div>
+            <div class="cat-tile wide">
+              <img src="https://images.unsplash.com/photo-1590725140246-20acdee442be?auto=format&fit=crop&w=900&q=85" alt="Ardesia Outdoor" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Ardesia Outdoor</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">60×120 cm</span><span class="cat-tile-fin">R11 Antiscivolo</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=600&q=85" alt="Cemento Outdoor" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Cemento Outdoor</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">60×60 cm</span><span class="cat-tile-fin">R11 Antiscivolo</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1564540572323-a6e20b06f0b1?auto=format&fit=crop&w=600&q=85" alt="Terrazzo Verde" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Terrazzo Verde</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">40×40 cm</span><span class="cat-tile-fin">R11 Antiscivolo</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?auto=format&fit=crop&w=600&q=85" alt="Legno Outdoor" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Legno Outdoor</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">25×150 cm</span><span class="cat-tile-fin">R11 Antiscivolo</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIVESTIMENTI -->
+        <div class="cat-panel" id="panel-rivestimenti">
+          <div class="cat-panel-intro">
+            <div>
+              <h3>Rivestimenti</h3>
+              <p>Piastrelle da parete per creare pareti di carattere in bagni, cucine e living. Dal formato metro alle grandi lastre, dal monocromo alle decorazioni in rilievo.</p>
+            </div>
+            <div class="cat-panel-formats">
+              <span class="cat-fmt">7.5×30</span>
+              <span class="cat-fmt">10×30 Metro</span>
+              <span class="cat-fmt">30×90</span>
+              <span class="cat-fmt">60×120</span>
+            </div>
+          </div>
+          <div class="cat-tiles-grid">
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=85" alt="Subway Bianco" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Subway Bianco</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">10×30 cm</span><span class="cat-tile-fin">Lucidato</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=600&q=85" alt="Rivestimento Grigio" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Rivestimento Grigio</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">30×90 cm</span><span class="cat-tile-fin">Opaco</span></div>
+              </div>
+            </div>
+            <div class="cat-tile wide">
+              <img src="https://images.unsplash.com/photo-1629079447777-1e605162dc8d?auto=format&fit=crop&w=900&q=85" alt="Rivestimento Dark" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Rivestimento Dark</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">60×120 cm</span><span class="cat-tile-fin">Naturale</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=600&q=85" alt="Pasta di Vetro Oro" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Pasta di Vetro Oro</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">2.5×2.5 cm</span><span class="cat-tile-fin">Mosaico</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=85" alt="Metro Cemento" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Metro Cemento</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">7.5×30 cm</span><span class="cat-tile-fin">Opaco</span></div>
+              </div>
+            </div>
+            <div class="cat-tile">
+              <img src="https://images.unsplash.com/photo-1541123437800-1bb1317badc2?auto=format&fit=crop&w=600&q=85" alt="Decoro 3D" loading="lazy" />
+              <div class="cat-tile-info">
+                <div class="cat-tile-name">Decoro 3D in Rilievo</div>
+                <div class="cat-tile-meta"><span class="cat-tile-dim">30×90 cm</span><span class="cat-tile-fin">Strutturato</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /cat-content -->
+    </div><!-- /cat-layout -->
+
+    <div class="catalogo-cta reveal">
+      <p>Vuoi vedere tutti i <strong>400+ modelli</strong>? Vieni in showroom o richiedi una consulenza gratuita.</p>
+      <a href="#contatto" class="btn-arancio">Prenota Consulenza Gratuita</a>
+    </div>
+  </section>
+
+  <!-- MATERIALI -->
+  <section id="materiali">
+    <div class="mat-layout">
+      <div class="mat-visual reveal">
+        <div class="mat-grid">
+          <div class="mg-1"><img class="mg-img" src="https://images.unsplash.com/photo-1513467535987-fd81bc7d62f8?auto=format&fit=crop&w=600&q=85" alt="Marmo bianco" loading="lazy" /></div>
+          <div class="mg-2"><img class="mg-img" src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=600&q=85" alt="Bagno moderno" loading="lazy" style="filter:brightness(0.7) saturate(1.2);" /></div>
+          <div class="mg-3"><img class="mg-img" src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?auto=format&fit=crop&w=600&q=85" alt="Terracotta" loading="lazy" /></div>
+        </div>
+        <div class="mat-label">Qualità Selezionata</div>
+      </div>
+      <div class="mat-content reveal reveal-delay-1">
+        <div class="section-eyebrow">I Nostri Materiali</div>
+        <h2>Solo il <em>meglio</em><br>delle <strong>manifatture</strong> italiane</h2>
+        <p>
+          Ogni piastrella nel nostro showroom è stata selezionata per qualità, durabilità ed estetica.
+          Lavoriamo con i migliori produttori italiani ed europei per offrirti materiali che reggono il
+          tempo e restano belli per decenni.
+        </p>
+        <ul class="mat-list">
+          <li>Grès Porcellanato Rettificato</li>
+          <li>Marmo e Pietre Naturali</li>
+          <li>Mosaico in Vetro e Pietra</li>
+          <li>Large Format fino 160×320 cm</li>
+          <li>Cotto e Terracotta Artigianale</li>
+          <li>Kerlite Ultrasottile 3.5mm</li>
+          <li>Gres Fine Porcellanato</li>
+          <li>Effetto Legno Certificato</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery strip -->
+  <div class="gallery-strip">
+    <div class="gs-cell"><img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=600&q=80" alt="Bagno bianco moderno" loading="lazy" /></div>
+    <div class="gs-cell"><img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=600&q=80" alt="Piastrelle marmo" loading="lazy" /></div>
+    <div class="gs-cell"><img src="https://images.unsplash.com/photo-1629079447777-1e605162dc8d?auto=format&fit=crop&w=600&q=80" alt="Bagno dark luxury" loading="lazy" /></div>
+    <div class="gs-cell"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=80" alt="Piastrelle grigie" loading="lazy" /></div>
+    <div class="gs-cell"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80" alt="Doccia piastrelle" loading="lazy" /></div>
+  </div>
+
+  <!-- CONTATTO -->
+  <section id="contatto">
+    <div class="contatto-layout">
+      <div class="contatto-info reveal">
+        <div class="section-eyebrow">Contattaci</div>
+        <h2>Inizia il tuo<br>progetto <em>oggi</em></h2>
+        <p>
+          Prenota un sopralluogo gratuito o vieni a trovarci in showroom.
+          Ti guidiamo nella scelta delle piastrelle perfette e ti offriamo un preventivo dettagliato
+          senza impegno.
+        </p>
+        <a href="tel:+390212345678" class="btn-arancio" style="align-self:flex-start;cursor:pointer;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Chiamaci Ora
+        </a>
+        <div class="info-cards">
+          <div class="info-card">
+            <div class="info-card-label">Showroom</div>
+            <div class="info-card-val">Via della Ceramica 24, Milano</div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-label">Orari</div>
+            <div class="info-card-val">Lun–Sab 9:00–19:00</div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-label">Telefono</div>
+            <div class="info-card-val">+39 02 1234 5678</div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-label">Email</div>
+            <div class="info-card-val">info@ceramicapro.it</div>
+          </div>
+        </div>
+      </div>
+
+      <form class="reveal reveal-delay-1" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Nome</label>
+            <input type="text" class="form-input" placeholder="Mario" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Cognome</label>
+            <input type="text" class="form-input" placeholder="Rossi" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Telefono</label>
+            <input type="tel" class="form-input" placeholder="+39 333 000 0000" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" placeholder="mario@email.it" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tipo di Intervento</label>
+          <select class="form-select">
+            <option>Ristrutturazione completa bagno</option>
+            <option>Solo posa piastrelle</option>
+            <option>Rifacimento doccia / vasca</option>
+            <option>Acquisto piastrelle (solo materiale)</option>
+            <option>Consulenza & preventivo</option>
+            <option>Impianti idraulici / elettrici</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Descrivi il progetto</label>
+          <textarea class="form-textarea" placeholder="Dimensioni del bagno, stile desiderato, tempistiche..."></textarea>
+        </div>
+        <button type="submit" class="form-submit" id="form-btn">
+          Invia Richiesta &nbsp;→
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-logo">CERAMICA<b>PRO</b></div>
+    <div class="footer-copy">© 2024 CeramicaPro — P.IVA 00000000000 — Tutti i diritti riservati</div>
+    <nav class="footer-nav">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Cookie Policy</a>
+      <a href="#">Note Legali</a>
+    </nav>
+  </footer>
+
+  <script>
+    /* ── Cursor ── */
+    const cur = document.getElementById('cursor');
+    const ring = document.getElementById('cursor-ring');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+    (function tick(){
+      cur.style.left=mx+'px'; cur.style.top=my+'px';
+      rx+=(mx-rx)*.13; ry+=(my-ry)*.13;
+      ring.style.left=rx+'px'; ring.style.top=ry+'px';
+      requestAnimationFrame(tick);
+    })();
+    document.querySelectorAll('a,button,.tile-card,.ristr-card,.filtro').forEach(el=>{
+      el.addEventListener('mouseenter',()=>{
+        cur.style.width='16px';cur.style.height='16px';
+        ring.style.width='52px';ring.style.height='52px';ring.style.borderColor='var(--arancio)';
+      });
+      el.addEventListener('mouseleave',()=>{
+        cur.style.width='10px';cur.style.height='10px';
+        ring.style.width='38px';ring.style.height='38px';ring.style.borderColor='var(--teal)';
+      });
+    });
+
+    /* ── Hero tile animation ── */
+    const tileColors = [
+      'rgba(13,112,112,0.35)','rgba(13,80,80,0.5)','rgba(8,68,68,0.4)',
+      'rgba(232,96,26,0.2)','rgba(200,80,20,0.25)','rgba(13,112,112,0.15)',
+      'rgba(255,255,255,0.04)','rgba(255,255,255,0.07)','rgba(0,0,0,0.15)',
+    ];
+    const heroTiles = document.getElementById('hero-tiles');
+    for(let i=0;i<36;i++){
+      const d=document.createElement('div');
+      d.className='htile';
+      d.style.background=tileColors[Math.floor(Math.random()*tileColors.length)];
+      heroTiles.appendChild(d);
+    }
+    setInterval(()=>{
+      const tiles=heroTiles.querySelectorAll('.htile');
+      for(let i=0;i<3;i++){
+        const idx=Math.floor(Math.random()*36);
+        tiles[idx].style.background=tileColors[Math.floor(Math.random()*tileColors.length)];
+      }
+    },500);
+
+    /* ── Scroll reveal ── */
+    const obs=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+    },{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+    /* ── Catalog tabs ── */
+    document.querySelectorAll('.cat-tab').forEach(tab=>{
+      tab.addEventListener('click', ()=>{
+        const cat = tab.dataset.cat;
+        document.querySelectorAll('.cat-tab').forEach(t=>t.classList.remove('active'));
+        tab.classList.add('active');
+        document.querySelectorAll('.cat-panel').forEach(p=>{
+          p.classList.remove('active');
+          p.style.opacity='0';
+        });
+        const panel = document.getElementById('panel-'+cat);
+        if(panel){
+          panel.classList.add('active');
+          requestAnimationFrame(()=>{
+            panel.style.transition='opacity .35s';
+            panel.style.opacity='1';
+          });
+        }
+      });
+    });
+    /* init first panel visible */
+    const firstPanel = document.querySelector('.cat-panel.active');
+    if(firstPanel) firstPanel.style.opacity='1';
+
+    /* ── Form ── */
+    function handleSubmit(e){
+      e.preventDefault();
+      const btn=document.getElementById('form-btn');
+      btn.textContent='Richiesta inviata con successo ✓';
+      btn.style.background='var(--teal)';
+      setTimeout(()=>{ btn.textContent='Invia Richiesta →'; btn.style.background=''; e.target.reset(); },4000);
+    }
+
+    /* ── Smooth scroll ── */
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',e=>{
+        const t=document.querySelector(a.getAttribute('href'));
+        if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
+      });
+    });
+  </script>
+</body>
+</html>
