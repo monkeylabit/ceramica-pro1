@@ -1056,10 +1056,16 @@
       .btn-teal-outline:hover { background: rgba(255,255,255,0.15); }
       .hero-trust {
         border-top-color: rgba(255,255,255,0.2);
-        display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+        display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+        margin-top: 1.5rem;
       }
-      .trust-num { color: #fff; }
-      .trust-label { color: rgba(255,255,255,0.65); }
+      .trust-item {
+        padding: 0.9rem 0.8rem;
+        background: rgba(0,0,0,0.28);
+        border: 1px solid rgba(255,255,255,0.1);
+      }
+      .trust-num { color: #fff; font-size: 1.7rem; }
+      .trust-label { color: rgba(255,255,255,0.7); font-size: 0.6rem; letter-spacing: 0.06em; }
 
       /* Brand strip */
       .brand-strip {
@@ -1101,9 +1107,10 @@
       .processo-steps::after { display: none; }
       #processo { padding: 3.5rem 5vw; }
 
-      /* Catalog */
-      .catalogo-header { flex-direction: column; gap: 0.8rem; }
-      .catalogo-header-right p { text-align: left; }
+      /* Catalog header centrato */
+      .catalogo-header { flex-direction: column; gap: 0.8rem; align-items: center; text-align: center; }
+      .catalogo-header .section-eyebrow { margin: 0 auto; }
+      .catalogo-header-right p { text-align: center; }
       .cat-layout {
         grid-template-columns: 1fr;
         border: none;
@@ -1135,19 +1142,25 @@
       }
       .cat-tab.active::before { transform: scaleX(1); }
       .ct-count { display: none; }
-      .ct-name { font-size: 0.72rem; }
-      .cat-content { padding: 1.4rem 0; border: 1.5px solid var(--bordo); border-top: none; }
-      .cat-panel-intro { flex-direction: column; gap: 0.8rem; }
-      .cat-panel-intro h3 { font-size: 1.3rem; }
-      .cat-panel-formats { align-self: flex-start; }
-      .cat-tiles-grid { grid-template-columns: 1fr 1fr; gap: 2px; }
+      .ct-name { font-size: 0.7rem; }
+      .cat-content { padding: 1.2rem 1rem 1.4rem; border: 1.5px solid var(--bordo); border-top: none; }
+      .cat-panel-intro { flex-direction: column; gap: 0.6rem; margin-bottom: 1rem; }
+      .cat-panel-intro h3 { font-size: 1.2rem; }
+      .cat-panel-intro p { display: none; }
+      .cat-panel-formats { align-self: flex-start; flex-wrap: wrap; gap: 0.3rem; }
+      .cat-fmt { font-size: 0.55rem; padding: 0.15rem 0.45rem; }
+      .cat-tiles-grid { grid-template-columns: 1fr 1fr; gap: 3px; }
+      .cat-tile { aspect-ratio: 1; }
       .cat-tile.wide { grid-column: span 1; aspect-ratio: 1; }
       .cat-tile.tall { grid-row: span 1; aspect-ratio: 1; }
-      /* Always show tile info on touch */
+      /* Tile info sempre visibile su touch */
       .cat-tile-info {
         opacity: 1 !important;
-        background: linear-gradient(to top, rgba(8,68,68,0.82) 0%, rgba(8,68,68,0.05) 60%, transparent 100%);
+        background: linear-gradient(to top, rgba(8,68,68,0.88) 0%, transparent 55%);
       }
+      .cat-tile-name { font-size: 0.82rem; }
+      .cat-tile-dim { font-size: 0.55rem; }
+      .cat-tile-fin { font-size: 0.52rem; padding: 0.12rem 0.35rem; }
 
       /* Gallery strip */
       .gallery-strip { grid-template-columns: repeat(3,1fr); height: 130px; }
