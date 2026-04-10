@@ -690,16 +690,7 @@
     .catalogo-cta p { font-size: 0.9rem; color: var(--grigio-sc); }
     .catalogo-cta strong { color: var(--teal); }
 
-    @media (max-width: 900px) {
-      .cat-layout { grid-template-columns: 1fr; }
-      .cat-sidebar { flex-direction: row; flex-wrap: wrap; border-right: none; border-bottom: 1.5px solid var(--bordo); }
-      .cat-tab { flex: 1 1 auto; border-bottom: 1px solid var(--bordo); border-right: 1px solid var(--bordo); padding: 0.8rem 0.8rem; }
-      .cat-tab::before { top: auto; bottom: 0; left: 0; right: 0; width: auto; height: 3px; transform: scaleX(0); }
-      .cat-tab.active::before { transform: scaleX(1); }
-      .cat-tiles-grid { grid-template-columns: repeat(2,1fr); }
-      .cat-tile.tall { aspect-ratio: 1; grid-row: span 1; }
-      .cat-tile.wide { grid-column: span 1; aspect-ratio: 1; }
-    }
+    /* catalog mobile handled in main @media block above */
 
     /* ─── MATERIALI ─── */
     #materiali {
@@ -960,23 +951,243 @@
     .reveal-delay-3 { transition-delay: .3s; }
     .reveal-delay-4 { transition-delay: .4s; }
 
+    /* ─── HAMBURGER ─── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column; justify-content: center; gap: 5px;
+      width: 44px; height: 44px;
+      background: none; border: none;
+      padding: 10px; cursor: pointer; flex-shrink: 0;
+    }
+    .nav-hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--nero);
+      transition: transform .3s, opacity .3s;
+      transform-origin: center;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 4px); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -4px); }
+
+    /* ─── MOBILE MENU ─── */
+    .mobile-menu {
+      display: none;
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 90;
+      background: var(--bianco);
+      padding: 90px 6vw 3rem;
+      flex-direction: column; gap: 0;
+      overflow-y: auto;
+      transform: translateY(-8px);
+      opacity: 0;
+      transition: opacity .3s, transform .3s;
+      pointer-events: none;
+    }
+    .mobile-menu.open {
+      opacity: 1; transform: none; pointer-events: all;
+    }
+    .mm-link {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid var(--bordo);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--nero);
+      text-decoration: none;
+    }
+    .mm-num {
+      font-size: 0.7rem;
+      font-weight: 400;
+      color: var(--arancio);
+      letter-spacing: 0.1em;
+    }
+    .mm-cta {
+      margin-top: 2rem;
+      display: flex; flex-direction: column; gap: 0.8rem;
+    }
+    .mm-info {
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: var(--grigio);
+      text-align: center;
+      padding-top: 0.5rem;
+    }
+
     /* ─── MOBILE ─── */
-    @media (max-width: 900px) {
-      #hero { grid-template-columns: 1fr; }
-      .hero-right { display: none; }
-      .hero-left { padding: 3rem 5vw 4rem; }
-      .ristr-header, .mat-layout, .contatto-layout { grid-template-columns: 1fr; }
-      .ristr-grid { grid-template-columns: 1fr; }
-      .processo-steps { grid-template-columns: 1fr 1fr; }
-      .catalogo-grid { grid-template-columns: 1fr 1fr; }
-      .tile-card.featured { grid-column: span 1; grid-row: span 1; }
-      .gallery-strip { grid-template-columns: repeat(3,1fr); height: 140px; }
+    @media (max-width: 768px) {
+      /* Nav */
       .nav-links { display: none; }
-      footer { flex-direction: column; text-align: center; }
-      .brand-strip { flex-direction: column; gap: 1rem; }
+      .nav-hamburger { display: flex; }
+      .mobile-menu { display: flex; }
+      nav { padding: 0 4vw; }
+
+      /* Topbar */
+      .topbar-right { display: none; }
+      .topbar { padding: 0 4vw; }
+
+      /* Hero: bathroom photo as full background */
+      #hero {
+        grid-template-columns: 1fr;
+        min-height: 100svh;
+        position: relative;
+      }
+      .hero-right {
+        display: block;
+        position: absolute; inset: 0; z-index: 0;
+      }
+      .hero-bg-img { filter: brightness(0.35) saturate(0.7); }
+      .hero-left {
+        position: relative; z-index: 1;
+        padding: 5rem 5vw 3rem;
+      }
+      .hero-title { color: #fff; }
+      .hero-title strong { color: #fff; }
+      .hero-sub { color: rgba(255,255,255,0.8); }
+      .hero-badge { background: rgba(232,96,26,0.9); border-color: transparent; }
+      .hero-actions { flex-direction: column; }
+      .btn-arancio, .btn-teal-outline {
+        width: 100%; justify-content: center; text-align: center;
+      }
+      .btn-teal-outline { border-color: rgba(255,255,255,0.5); color: #fff; }
+      .btn-teal-outline:hover { background: rgba(255,255,255,0.15); }
+      .hero-trust {
+        border-top-color: rgba(255,255,255,0.2);
+        display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+      }
+      .trust-num { color: #fff; }
+      .trust-label { color: rgba(255,255,255,0.65); }
+
+      /* Brand strip */
+      .brand-strip {
+        overflow-x: auto; flex-wrap: nowrap;
+        padding: 1rem 4vw; gap: 0;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .brand-strip::-webkit-scrollbar { display: none; }
+      .brand-strip-item { flex-shrink: 0; padding-right: 2rem; }
+
+      /* Sections padding */
+      #ristrutturazione, #catalogo, #materiali, #contatto { padding: 4rem 5vw; }
+      #processo { padding: 3.5rem 5vw; }
+
+      /* Section headers */
+      .ristr-header { grid-template-columns: 1fr; gap: 1rem; }
+      .ristr-header p { max-width: 100%; }
+
+      /* Servizi grid */
+      .ristr-grid { grid-template-columns: 1fr; gap: 1.5px; }
+      .ristr-card { padding: 2rem 1.5rem; }
+
+      /* Bagni showcase */
+      #bagni-showcase {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+        height: 320px;
+      }
+      .bs-cell.bs-tall { grid-row: span 1; }
+      #bagni-showcase .bs-cell:last-child { display: none; }
+      #bagni-showcase .bs-cell:nth-child(4) { display: none; }
+
+      /* Processo */
+      .processo-steps {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem 1rem;
+      }
+      .processo-steps::after { display: none; }
+      #processo { padding: 3.5rem 5vw; }
+
+      /* Catalog */
+      .catalogo-header { flex-direction: column; gap: 0.8rem; }
+      .catalogo-header-right p { text-align: left; }
+      .cat-layout {
+        grid-template-columns: 1fr;
+        border: none;
+        gap: 0;
+      }
+      .cat-sidebar {
+        flex-direction: row;
+        border-right: none;
+        border-bottom: 1.5px solid var(--teal);
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        background: var(--bianco);
+        position: sticky; top: 70px; z-index: 10;
+      }
+      .cat-sidebar::-webkit-scrollbar { display: none; }
+      .cat-tab {
+        flex-shrink: 0;
+        border-bottom: none;
+        border-right: 1px solid var(--bordo);
+        padding: 0.8rem 1rem;
+        min-width: 110px;
+      }
+      .cat-tab::before {
+        top: auto; bottom: 0; left: 0; right: 0;
+        width: auto; height: 3px;
+        transform: scaleX(0);
+      }
+      .cat-tab.active::before { transform: scaleX(1); }
+      .ct-count { display: none; }
+      .ct-name { font-size: 0.72rem; }
+      .cat-content { padding: 1.4rem 0; border: 1.5px solid var(--bordo); border-top: none; }
+      .cat-panel-intro { flex-direction: column; gap: 0.8rem; }
+      .cat-panel-intro h3 { font-size: 1.3rem; }
+      .cat-panel-formats { align-self: flex-start; }
+      .cat-tiles-grid { grid-template-columns: 1fr 1fr; gap: 2px; }
+      .cat-tile.wide { grid-column: span 1; aspect-ratio: 1; }
+      .cat-tile.tall { grid-row: span 1; aspect-ratio: 1; }
+      /* Always show tile info on touch */
+      .cat-tile-info {
+        opacity: 1 !important;
+        background: linear-gradient(to top, rgba(8,68,68,0.82) 0%, rgba(8,68,68,0.05) 60%, transparent 100%);
+      }
+
+      /* Gallery strip */
+      .gallery-strip { grid-template-columns: repeat(3,1fr); height: 130px; }
+
+      /* Materiali */
+      .mat-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .mat-visual { order: -1; }
+      .mat-grid { grid-template-rows: 130px 130px; }
+      .mat-list { grid-template-columns: 1fr 1fr; }
+      .mat-label { bottom: -1rem; font-size: 0.65rem; }
+
+      /* Contatto */
+      .contatto-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .info-cards { grid-template-columns: 1fr 1fr; }
       .form-row { grid-template-columns: 1fr; }
-      .mat-list { grid-template-columns: 1fr; }
+      .form-submit { width: 100%; justify-content: center; }
+      #contatto { padding: 4rem 5vw; }
+      .contatto-info a.btn-arancio { width: 100%; justify-content: center; }
+
+      /* Footer */
+      footer {
+        flex-direction: column; text-align: center; gap: 1.2rem;
+        padding: 2rem 5vw;
+      }
+      .footer-nav { justify-content: center; flex-wrap: wrap; gap: 1rem; }
+
+      /* Catalog CTA */
+      .catalogo-cta { flex-direction: column; align-items: flex-start; }
+      .catalogo-cta .btn-arancio { width: 100%; justify-content: center; }
+
+      /* Process section bg text */
+      #processo::before { font-size: 28vw; }
+    }
+
+    @media (max-width: 420px) {
+      .hero-trust { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+      .processo-steps { grid-template-columns: 1fr; }
+      #bagni-showcase { height: 240px; }
       .info-cards { grid-template-columns: 1fr; }
+      .mat-list { grid-template-columns: 1fr; }
+      h2 { font-size: 1.8rem; }
+      .hero-title { font-size: 2.4rem; }
     }
   </style>
 </head>
@@ -1005,7 +1216,36 @@
       <li><a href="#materiali">Materiali</a></li>
       <li><a href="#contatto" class="nav-cta">Preventivo Gratuito</a></li>
     </ul>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Apri menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+
+  <!-- MOBILE MENU -->
+  <div id="mobile-menu" class="mobile-menu" aria-hidden="true">
+    <a href="#ristrutturazione" class="mm-link" onclick="closeMenu()">
+      <span class="mm-num">01</span> Ristrutturazione Bagni
+    </a>
+    <a href="#processo" class="mm-link" onclick="closeMenu()">
+      <span class="mm-num">02</span> Come Lavoriamo
+    </a>
+    <a href="#catalogo" class="mm-link" onclick="closeMenu()">
+      <span class="mm-num">03</span> Catalogo Piastrelle
+    </a>
+    <a href="#materiali" class="mm-link" onclick="closeMenu()">
+      <span class="mm-num">04</span> I Nostri Materiali
+    </a>
+    <div class="mm-cta">
+      <a href="#contatto" class="btn-arancio" style="width:100%;justify-content:center;" onclick="closeMenu()">
+        Richiedi Preventivo Gratuito
+      </a>
+      <a href="tel:+390212345678" class="btn-teal-outline" style="width:100%;justify-content:center;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Chiamaci Ora
+      </a>
+      <div class="mm-info">Lun–Sab 9:00–19:00 &nbsp;·&nbsp; Via della Ceramica 24, Milano</div>
+    </div>
+  </div>
 
   <!-- HERO -->
   <section id="hero">
@@ -1882,6 +2122,30 @@
   </footer>
 
   <script>
+    /* ── Hamburger menu ── */
+    const hamburger = document.getElementById('nav-hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    function closeMenu(){
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      mobileMenu.setAttribute('aria-hidden','true');
+      document.body.style.overflow='';
+    }
+    hamburger.addEventListener('click',()=>{
+      const isOpen = mobileMenu.classList.contains('open');
+      if(isOpen){ closeMenu(); }
+      else {
+        hamburger.classList.add('open');
+        mobileMenu.classList.add('open');
+        mobileMenu.setAttribute('aria-hidden','false');
+        document.body.style.overflow='hidden';
+      }
+    });
+    /* close menu on any anchor click inside */
+    mobileMenu.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',()=>{ closeMenu(); });
+    });
+
     /* ── Cursor ── */
     const cur = document.getElementById('cursor');
     const ring = document.getElementById('cursor-ring');
@@ -1967,8 +2231,15 @@
     /* ── Smooth scroll ── */
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
       a.addEventListener('click',e=>{
-        const t=document.querySelector(a.getAttribute('href'));
-        if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
+        const href=a.getAttribute('href');
+        if(href==='#') return;
+        const t=document.querySelector(href);
+        if(t){
+          e.preventDefault();
+          const offset = window.innerWidth<=768 ? 106 : 70;
+          const top = t.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({top, behavior:'smooth'});
+        }
       });
     });
   </script>
