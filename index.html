@@ -907,37 +907,44 @@
       object-fit: cover; display: block;
     }
 
-    /* ─── BAGNI SHOWCASE ─── */
+    /* ─── BAGNI SHOWCASE — Infinite Scroll ─── */
     #bagni-showcase {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-template-rows: 340px 340px;
-      gap: 3px;
+      background: #000;
+      padding: 3.5rem 0;
+      overflow: hidden;
+      position: relative;
     }
-    .bs-cell {
-      position: relative; overflow: hidden; cursor: none;
+    .scroll-mask {
+      -webkit-mask: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+      mask: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
     }
-    .bs-cell img {
+    @keyframes scroll-right {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .scroll-track {
+      display: flex;
+      gap: 1.2rem;
+      width: max-content;
+      animation: scroll-right 30s linear infinite;
+    }
+    .scroll-track:hover { animation-play-state: paused; }
+    .scroll-item {
+      flex-shrink: 0;
+      width: 280px; height: 280px;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+    .scroll-item img {
       width: 100%; height: 100%;
       object-fit: cover; display: block;
-      transition: transform .7s cubic-bezier(.25,0,0,1);
+      transition: transform .4s ease, filter .4s ease;
     }
-    .bs-cell:hover img { transform: scale(1.06); }
-    .bs-cell.bs-tall { grid-row: span 2; }
-    .bs-label {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      padding: 1.2rem 1.4rem;
-      background: linear-gradient(to top, rgba(8,88,88,0.85), transparent);
-      color: #fff;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      opacity: 0;
-      transition: opacity .35s;
+    .scroll-item:hover img {
+      transform: scale(1.06);
+      filter: brightness(1.12);
     }
-    .bs-cell:hover .bs-label { opacity: 1; }
 
     /* ─── SCROLL REVEAL ─── */
     .reveal {
@@ -1091,12 +1098,8 @@
       .ristr-card { padding: 2rem 1.5rem; }
 
       /* Bagni showcase */
-      #bagni-showcase {
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 160px 160px;
-      }
-      .bs-cell.bs-tall { grid-row: span 1; }
-      #bagni-showcase .bs-cell:last-child { display: none; }
+      #bagni-showcase { padding: 2rem 0; }
+      .scroll-item { width: 180px; height: 180px; border-radius: 10px; }
 
       /* Processo */
       .processo-steps {
@@ -1197,7 +1200,7 @@
     @media (max-width: 420px) {
       .hero-trust { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
       .processo-steps { grid-template-columns: 1fr; }
-      #bagni-showcase { height: 240px; }
+      .scroll-item { width: 140px; height: 140px; }
       .info-cards { grid-template-columns: 1fr; }
       .mat-list { grid-template-columns: 1fr; }
       h2 { font-size: 1.8rem; }
@@ -1406,27 +1409,29 @@
     </div>
   </section>
 
-  <!-- BAGNI SHOWCASE -->
+  <!-- BAGNI SHOWCASE — Infinite Scroll -->
   <div id="bagni-showcase">
-    <div class="bs-cell bs-tall">
-      <img src="images/bagno_1.png" alt="Bagno moderno con doccia" loading="lazy" />
-      <div class="bs-label">Doccia Walk-in</div>
-    </div>
-    <div class="bs-cell">
-      <img src="images/bagno_2.png" alt="Bagno di design" loading="lazy" />
-      <div class="bs-label">Bagno Padronale</div>
-    </div>
-    <div class="bs-cell">
-      <img src="images/bagno_3.png" alt="Vasca freestanding" loading="lazy" />
-      <div class="bs-label">Suite con Vasca</div>
-    </div>
-    <div class="bs-cell">
-      <img src="images/bagno_4.png" alt="Bagno luxury dark" loading="lazy" />
-      <div class="bs-label">Luxury Dark</div>
-    </div>
-    <div class="bs-cell">
-      <img src="images/bagno_5.png" alt="Bagno ristrutturato" loading="lazy" />
-      <div class="bs-label">Ristrutturazione Completa</div>
+    <div class="scroll-mask">
+      <div class="scroll-track">
+        <!-- Set 1 -->
+        <div class="scroll-item"><img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=600&q=85" alt="Bagno bianco moderno" loading="lazy" /></div>
+        <div class="scroll-item"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=85" alt="Doccia walk-in" loading="lazy" /></div>
+        <div class="scroll-item"><img src="https://images.unsplash.com/photo-1620626011761-996317702149?auto=format&fit=crop&w=600&q=85" alt="Bagno di design" loading="lazy" /></div>
+        <div class="scroll-item"><img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=600&q=85" alt="Vasca freestanding" loading="lazy" /></div>
+        <div class="scroll-item"><img src="https://images.unsplash.com/photo-1629079447777-1e605162dc8d?auto=format&fit=crop&w=600&q=85" alt="Bagno luxury dark" loading="lazy" /></div>
+        <div class="scroll-item"><img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=600&q=85" alt="Ristrutturazione bagno" loading="lazy" /></div>
+        <div class="scroll-item"><img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=600&q=85" alt="Piastrelle marmo" loading="lazy" /></div>
+        <div class="scroll-item"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=85" alt="Piastrelle cemento" loading="lazy" /></div>
+        <!-- Set 2 — duplicato per loop continuo -->
+        <div class="scroll-item"><img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=600&q=85" alt="Bagno bianco moderno" loading="lazy" /></div>
+        <div class="scroll-item"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=85" alt="Doccia walk-in" loading="lazy" /></div>
+        <div class="scroll-item"><img src="https://images.unsplash.com/photo-1620626011761-996317702149?auto=format&fit=crop&w=600&q=85" alt="Bagno di design" loading="lazy" /></div>
+        <div class="scroll-item"><img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=600&q=85" alt="Vasca freestanding" loading="lazy" /></div>
+        <div class="scroll-item"><img src="https://images.unsplash.com/photo-1629079447777-1e605162dc8d?auto=format&fit=crop&w=600&q=85" alt="Bagno luxury dark" loading="lazy" /></div>
+        <div class="scroll-item"><img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=600&q=85" alt="Ristrutturazione bagno" loading="lazy" /></div>
+        <div class="scroll-item"><img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=600&q=85" alt="Piastrelle marmo" loading="lazy" /></div>
+        <div class="scroll-item"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=85" alt="Piastrelle cemento" loading="lazy" /></div>
+      </div>
     </div>
   </div>
 
